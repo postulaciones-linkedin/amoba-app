@@ -16,21 +16,19 @@ class CalendarSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('calendar')->insert(
-            [
-                [
-                    'calendar_id' => NULL,
-                    'name' => "Catalunya",
-                    'updated_at' => '2020-01-14 13:42:25',
-                    'created_at' => '2020-01-14 13:42:25'
-                ],
-                [
-                    "calendar_id" => null,
-                    "name" => "test calendar",
-                    "updated_at" => "2021-05-03 12:29:46",
-                    "created_at" => "2021-05-03 12:29:46"
-                ]
-            ]
-        );
+        $data = file_get_contents("database/seeders/data/calendar.json");
+        $items = json_decode($data, true);
+        $seed = [];
+        foreach ($items as $i) {
+            foreach ($i as $p) {
+                array_push($seed, [
+                    'calendar_id' => $p['calendar_id'],
+                    'name' => $p['name'],
+                    'updated_at' => $p['updated_at'],
+                    'created_at' => $p['created_at']
+                ]);
+            }
+        }
+        DB::table('calendar')->insert($seed);
     }
 }
