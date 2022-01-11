@@ -7,6 +7,7 @@ use App\Models\UserPlans;
 use App\Models\User;
 use App\Models\Routes;
 use App\Models\RoutesData;
+use App\Models\DisabledDays;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -134,6 +135,8 @@ class UserController extends Controller
                 $user_plan->credit_confirm_canceled = 30.00;
                 $user_plan->cost_center_id = 0;
                 $user_plan->status_financiation = 0;
+                $user_plan->start_timestamp = $routeOrigin->start_timestamp;
+                $user_plan->end_timestamp = $routeOrigin->end_timestamp;
 
                 $user_plan->save();
 
@@ -179,9 +182,17 @@ class UserController extends Controller
                 ->where('date_init', '>=', $reservationStart) // Check if the initial reservation is greater than or equal to the availability of the route and less than the deadline
                 ->where('date_finish', '>=', $reservationEnd) // Check if the initial date than available for the route selected
                 ->where($day_of_week, 1);
-
-            if (count($dateAvailable) > 0) {
-                return true;
+            $calendar_id = '';
+            foreach ($dateAvailable as $d) {
+                $calendar_id = $d->calendar_id;
+            }
+            if (count($dateAvailable) > 0) { // Check if the reservations start are in disabled_days table relationate with calendar id field
+                $disabledDays = DisabledDays::all()
+                ->where('calendar_id', $calendar_id)
+                ->where('day', '=', $reservationStart);
+                if (count($disabledDays) == 0) {
+                    return true;
+                }
             }
         } else {
             return false;
