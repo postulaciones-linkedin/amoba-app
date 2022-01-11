@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Calendar;
 use App\Models\DisabledDays;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class CalendarController extends Controller
 {
@@ -38,9 +39,20 @@ class CalendarController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->name == NULL) {
+            return \Response::json([
+                'status' => 400,
+                'message' => 'Campo name requerido'
+            ], 400);
+        }
+        if ($request->day === NULL) {
+            return \Response::json([
+                'status' => 400,
+                'message' => 'Campo day requerido'
+            ], 400);
+        }
         $calendar = new Calendar();
         $calendar->name = $request->name;
-        $calendar->calendar_id = $request->calendar_id;
 
         $calendar->updated_at = NULL;
         $calendar->created_at = date('Y-m-d H:i:s');
@@ -49,10 +61,19 @@ class CalendarController extends Controller
 
         $returnData = [
             "name" => $calendar->name,
-            "calendar_id" => $calendar->calendar_id,
+            "calendar_id" => $calendar->id,
             "created_at" => $calendar->created_at,
             "id" => $calendar->id
         ];
+
+        $disabledDays = new DisabledDays();
+        $disabledDays->calendar_id = $calendar->id;
+        $disabledDays->day = $request->day;
+        $disabledDays->enabled = 1;
+        $disabledDays->created_at = date('Y-m-d');
+
+        $disabledDays->save();
+
         return $returnData;
     }
 
@@ -88,13 +109,13 @@ class CalendarController extends Controller
     public function update(Request $request, $id)
     {
         if ($request->name === NULL) {
-            return Response::json([
+            return \Response::json([
                 'status' => 400,
                 'message' => 'Campo nombre es requerido'
             ], 400);
         }
         if ($id === NULL) {
-            return Response::json([
+            return \Response::json([
                 'status' => 400,
                 'message' => 'El campo id es requerido'
             ], 400);
@@ -125,7 +146,7 @@ class CalendarController extends Controller
     {
         $calendarFetch = Calendar::find($id);
         if ($calendarFetch === NULL) {
-            return Response::json([
+            return \Response::json([
                 'status' => 400,
                 'message' => 'El campo id es requerido'
             ], 400);

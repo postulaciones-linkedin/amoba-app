@@ -97,14 +97,14 @@ class UserController extends Controller
     public function pushReservation($userId, Request $request)
     {
         if ($userId === NULL) {
-            return Response::json([
+            return \Response::json([
                 'status' => 400,
                 'message' => 'Campo userId requerido'
             ], 400);
         }
         $user = User::find($userId);
         if ($user === NULL) {
-            return Response::json([
+            return \Response::json([
                 'status' => 400,
                 'message' => 'El usuario no fue encontrado'
             ], 400);
@@ -151,7 +151,7 @@ class UserController extends Controller
                 ]);
                 return $request;
             } else {
-                return Response::json([
+                return \Response::json([
                     'status' => 400,
                     'message' => 'Ruta no disponible'
                 ], 400);
