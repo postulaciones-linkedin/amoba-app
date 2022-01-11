@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class Reservations extends Migration
 {
@@ -24,7 +25,7 @@ class Reservations extends Migration
             $table->integer('route_stop_destination_id');
             $table->boolean('enabled')->default(0);
             $table->date('updated_at')->nullable(true);
-            $table->date('created_at');
+            $table->timestamp('created_at');
             $table->date('deleted_at')->nullable(true);
         });
         DB::update("ALTER TABLE reservations AUTO_INCREMENT = 213;");

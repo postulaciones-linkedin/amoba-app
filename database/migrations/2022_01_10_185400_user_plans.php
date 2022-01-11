@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class UserPlans extends Migration
 {
@@ -38,11 +39,11 @@ class UserPlans extends Migration
             $table->bigInteger('proxim_renewal_price')->nullable(true);
             $table->float('credits_return');
             $table->integer('company_id');
-            $table->string('cancel_employee')->default(0);
-            $table->string('force_renovation')->default(0);
+            $table->boolean('cancel_employee')->default(0);
+            $table->boolean('force_renovation')->default(0);
             $table->date('date_canceled')->nullable(true);
-            $table->string('amount_confirm_canceled')->nullable(true);
-            $table->string('credit_confirm_canceled')->nullable(true);
+            $table->float('amount_confirm_canceled')->nullable(true);
+            $table->float('credit_confirm_canceled')->nullable(true);
             $table->integer('cost_center_id');
             $table->boolean('status_financiation')->default(0);
         });

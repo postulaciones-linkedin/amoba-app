@@ -47,7 +47,7 @@ class Services extends Migration
             $table->longText('itinerary_drivers');
             $table->string('cost_if_externalized')->nullable(true);
         });
-        DB::update("ALTER TABLE disabled_days AUTO_INCREMENT = 26257972;");
+        DB::update("ALTER TABLE services AUTO_INCREMENT = 26257972;");
     }
 
     /**

@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Calendar extends Model
 {
-    protected $table = 'user';
     use HasFactory;
+    protected $table = 'calendar';
+    protected $fillable = ['calendar_id', 'name', 'updated_at'];
 }
