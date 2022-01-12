@@ -120,7 +120,13 @@ class CalendarController extends Controller
                 'message' => 'El campo id es requerido'
             ], 400);
         }
-        $calendar = Calendar::findOrFail($request->id);
+        $calendar = Calendar::find($request->id);
+        if (empty($calendar)) {
+            return \Response::json([
+                'status' => 400,
+                'message' => 'No se encontro el calendario'
+            ], 400);
+        }
         $calendar->name = $request->name;
         $calendar->calendar_id = $request->calendar_id;
         $calendar->updated_at = date('Y-m-d H:i:s');
