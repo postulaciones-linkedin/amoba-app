@@ -198,4 +198,22 @@ class UserController extends Controller
             return false;
         }
     }
+    public function deleteReservation($userId)
+    {
+        $userPlans = UserPlans::all()
+        ->where('user_id', $userId);
+        $userPlansId = '';
+        foreach ($userPlans as $u) {
+            $userPlansId = $u->id;
+            $userPlans = $u;
+        }
+        DB::table('reservations')
+        ->where('user_plan_id', $userPlansId)
+        ->delete();
+        DB::table('user_plans')
+        ->where('user_id', $userId)
+        ->delete();
+
+        return $userPlans;
+    }
 }

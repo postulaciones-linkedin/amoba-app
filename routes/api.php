@@ -26,3 +26,4 @@ Route::delete('/calendar/{id}', 'App\Http\Controllers\CalendarController@destroy
 
 Route::get('/reservations/{user?}/{initialDate?}/{endDate?}', 'App\Http\Controllers\UserController@getReservations');
 Route::post('/pushReservation/{userId}', 'App\Http\Controllers\UserController@pushReservation');
+Route::delete('/dropReservation/{userId}', 'App\Http\Controllers\UserController@deleteReservation');
