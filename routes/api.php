@@ -20,7 +20,7 @@ Route::get('/calendar', 'App\Http\Controllers\CalendarController@index'); // Sho
 Route::get('/calendar/notAvailable', 'App\Http\Controllers\CalendarController@notAvailableDays'); // Show all log from disabled days
 Route::post('/calendar', 'App\Http\Controllers\CalendarController@store'); // Add new log to calendar
 Route::put('/calendar/{id}', 'App\Http\Controllers\CalendarController@update'); // Update new log
-Route::delete('/calendar/{id}', 'App\Http\Controllers\CalendarController@destroy'); // Delete a log
+Route::delete('/dropCalendar/{id}', 'App\Http\Controllers\CalendarController@destroy'); // Delete a log
 
 // User
 
