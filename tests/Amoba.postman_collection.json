@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "f76baa34-2af3-40d0-8760-60de7c9d1a6f",
+		"name": "Amoba",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Reservations",
+					"item": [
+						{
+							"name": "GetReservations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api}}reservations/:user/:initialDate/:endDate",
+									"host": [
+										"{{api}}reservations"
+									],
+									"path": [
+										":user",
+										":initialDate",
+										":endDate"
+									],
+									"variable": [
+										{
+											"key": "user",
+											"value": "35"
+										},
+										{
+											"key": "initialDate",
+											"value": "2021-12-14"
+										},
+										{
+											"key": "endDate",
+											"value": "2021-12-17"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PushReservation",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"reservation_start\": \"2021-10-26\",\r\n    \"reservation_end\": \"2021-10-30\", \r\n    \"route_origin_code\": \"AXMA3F\",\r\n    \"route_end_code\": \"KP0LKX\",\r\n    \"renewal_price\": 50.00,\r\n    \"language\": \"ca_ES\",\r\n    \"nif\": \"92903867J\",\r\n    \"business_name\": \"Test business\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api}}pushReservation/:userId",
+									"host": [
+										"{{api}}pushReservation"
+									],
+									"path": [
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteReservation",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{api}}dropReservation/:userId",
+									"host": [
+										"{{api}}dropReservation"
+									],
+									"path": [
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Calendar",
+			"item": [
+				{
+					"name": "GetCalendars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}calendar",
+							"host": [
+								"{{api}}calendar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddCalendar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"test\",\r\n    \"day\": \"2020-08-15\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}calendar",
+							"host": [
+								"{{api}}calendar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCalendar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}calendar/:id",
+							"host": [
+								"{{api}}calendar"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCalendar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api}}dropCalendar/:id",
+							"host": [
+								"{{api}}dropCalendar"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api",
+			"value": "http://localhost:8000/api/"
+		}
+	]
+}
